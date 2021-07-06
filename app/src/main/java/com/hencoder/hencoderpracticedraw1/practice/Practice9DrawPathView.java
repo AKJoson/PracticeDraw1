@@ -13,27 +13,40 @@ import android.util.AttributeSet;
 import android.view.View;
 
 public class Practice9DrawPathView extends View {
-    private Paint mPaint;
+    private Paint mPaint, mNewPaint;
     private Path path;
 
     public Practice9DrawPathView(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public Practice9DrawPathView(Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
+    private int mWidthValue, mHeightValue;
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        mWidthValue = MeasureSpec.getSize(widthMeasureSpec);
+        mHeightValue = MeasureSpec.getSize(heightMeasureSpec);
+        setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
+    }
 
     @SuppressLint("NewApi")
     public Practice9DrawPathView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mPaint = new Paint();
         path = new Path();
-        mPaint.setColor(Color.BLACK);
+        mPaint.setColor(Color.RED);
         path.addArc(200, 200, 400, 400, -225, 225);
         path.arcTo(400, 200, 600, 400, -180, 225, false);
         path.lineTo(400, 542);
+
+
+        mNewPaint = new Paint();
+        mNewPaint.setColor(Color.RED);
+        mNewPaint.setAntiAlias(true);
     }
 
     @Override
@@ -41,6 +54,11 @@ public class Practice9DrawPathView extends View {
         super.onDraw(canvas);
 
 //        练习内容：使用 canvas.drawPath() 方法画心形
-        canvas.drawPath(path,mPaint);
+        canvas.drawPath(path, mPaint);
+
+        canvas.drawCircle(0.5f * mWidthValue, 0.5f * mHeightValue, 50, mNewPaint);
+        canvas.drawCircle(0.5f * mWidthValue + 50 * 2, 0.5f * mHeightValue, 50, mNewPaint);
+
+//        canvas.drawLine();
     }
 }

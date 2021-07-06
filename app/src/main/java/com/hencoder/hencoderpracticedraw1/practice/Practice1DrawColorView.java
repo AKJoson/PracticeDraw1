@@ -24,9 +24,10 @@ public class Practice1DrawColorView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
-//        练习内容：使用 canvas.drawColor() 方法把 View 涂成黄色
-//        黄色： Color.YELLOW
-        canvas.drawColor(Color.YELLOW);
+        //黑色
+        canvas.drawColor(Color.BLACK);
+        //红色+蓝色 = 品红色
+        canvas.drawARGB(122, 255, 0, 255);
+        //最终颜色，紫色，发生了一个颜色混合。
     }
 }

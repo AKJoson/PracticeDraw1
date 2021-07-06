@@ -32,6 +32,7 @@ public class Practice6DrawLineView extends View {
         super.onDraw(canvas);
 
 //        练习内容：使用 canvas.drawLine() 方法画直线
+        //开始x,开始y , 结束x,结束y
         canvas.drawLine(100,100,300,300,mPaint);
     }
 }

@@ -24,9 +24,9 @@ public class Practice7DrawRoundRectView extends View {
         super(context, attrs, defStyleAttr);
         mPaint = new Paint();
         mPaint.setColor(Color.BLACK);
-        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setStrokeWidth(20);
+        mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setAntiAlias(true);
-
     }
 
     @Override
@@ -35,6 +35,6 @@ public class Practice7DrawRoundRectView extends View {
 
 //        练习内容：使用 canvas.drawRoundRect() 方法画圆角矩形
         RectF rectF = new RectF(200,200,600,500);
-        canvas.drawRoundRect(rectF,50,50,mPaint);
+        canvas.drawRoundRect(rectF,30,30,mPaint);
     }
 }

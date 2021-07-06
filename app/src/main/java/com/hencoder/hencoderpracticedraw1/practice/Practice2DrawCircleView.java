@@ -11,25 +11,25 @@ import android.view.View;
 
 public class Practice2DrawCircleView extends View {
 
-    private int widthPixels,heightPixels;
-    private Paint mLTPaint,mRTPaint,mLBPaint,mRBPaint;
+    private int widthPixels, heightPixels;
+    private Paint mLTPaint, mRTPaint, mLBPaint, mRBPaint, mLinePaint, mRBTestPaint;
 
     public Practice2DrawCircleView(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public Practice2DrawCircleView(Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public Practice2DrawCircleView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        widthPixels = context.getResources().getDisplayMetrics().widthPixels;
-        heightPixels = context.getResources().getDisplayMetrics().heightPixels;
         mLTPaint = new Paint();
         mRTPaint = new Paint();
-        mLBPaint =new Paint();
+        mLBPaint = new Paint();
         mRBPaint = new Paint();
+        mLinePaint = new Paint();
+        mRBTestPaint = new Paint();
 
         mLTPaint.setColor(Color.BLACK);
         mLTPaint.setStyle(Paint.Style.FILL);
@@ -47,22 +47,39 @@ public class Practice2DrawCircleView extends View {
         mRBPaint.setColor(Color.BLACK);
         mRBPaint.setAntiAlias(true);
 
+        mRBTestPaint.setStyle(Paint.Style.STROKE);
+        mRBTestPaint.setColor(Color.RED);
+
+        mLinePaint.setStrokeWidth(10);
+        mLinePaint.setStyle(Paint.Style.FILL);
+        mLinePaint.setStrokeCap(Paint.Cap.ROUND);
+        mLinePaint.setColor(Color.GREEN);
+
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        widthPixels = MeasureSpec.getSize(widthMeasureSpec);
+        heightPixels = MeasureSpec.getSize(heightMeasureSpec);
+        setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
-//        练习内容：使用 canvas.drawCircle() 方法画圆
-//        一共四个圆：1.实心圆 2.空心圆 3.蓝色实心圆 4.线宽为 20 的空心圆
         /**
          * ok，baby,let's start
          */
-        //左上角的黑色circle
-        canvas.drawCircle(widthPixels/4,widthPixels/4,150,mLTPaint);
-        canvas.drawCircle(3*widthPixels/4,widthPixels/4,150, mRTPaint);
-        canvas.drawCircle(widthPixels/4,11*widthPixels/20,150,mLBPaint);
-        canvas.drawCircle(3*widthPixels/4,11*widthPixels/20,120,mRBPaint);
+        //先画两条线，分成四个区域
+        float[] partingLines = {0.25f * widthPixels, 0.5f * heightPixels, 0.75f * widthPixels, 0.5f * heightPixels,
+                0.5f * widthPixels, 0.25f * heightPixels, 0.5f * widthPixels, 0.75f * heightPixels};
+        canvas.drawLines(partingLines, mLinePaint);
+        canvas.drawCircle(widthPixels / 4, widthPixels / 4, 130, mLTPaint);
+        canvas.drawCircle(3 * widthPixels / 4, widthPixels / 4, 130, mRTPaint);
+        canvas.drawCircle(widthPixels / 4, 3 * widthPixels / 4, 130, mLBPaint);
 
+        canvas.drawCircle(3 * widthPixels / 4, 3 * widthPixels / 4, 130, mRBPaint);
+        //用mRBTestPaint画笔可以很清楚的看出来，描边是向外描一半，向内描一半
+        canvas.drawCircle(3 * widthPixels / 4, 3 * widthPixels / 4, 130, mRBTestPaint);
     }
 }
